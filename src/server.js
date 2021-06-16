@@ -3,7 +3,7 @@ const connectDB = require('./config/db')
 const env = require('dotenv')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
-const socketServer = require('./socketServer')
+const socketServer = require('./utils/socketServer')
 const { ExpressPeerServer } = require('peer')
 const path = require('path')
 
@@ -29,7 +29,7 @@ io.on('connection', socket => {
 ExpressPeerServer(http, { path: '/' })
 
 // routes
-const authRoutes = require('./routes/auth')
+const authRoutes = require('./routes/auth.router')
 
 // api
 app.use('/api/auth', authRoutes)
