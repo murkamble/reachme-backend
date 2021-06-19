@@ -29,18 +29,22 @@ io.on('connection', socket => {
 ExpressPeerServer(http, { path: '/' })
 
 // routes
-const authRoutes = require('./routes/auth.router')
+// Routes
+app.use('/api', require('./routes/auth.router'))
+app.use('/api', require('./routes/user.router'))
+app.use('/api', require('./routes/post.router'))
+app.use('/api', require('./routes/comment.router'))
+app.use('/api', require('./routes/notify.router'))
+app.use('/api', require('./routes/message.router'))
 
-// api
-app.use('/api/auth', authRoutes)
 
 // 
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/build'))
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-    })
-}
+// if(process.env.NODE_ENV === 'production'){
+//     app.use(express.static('client/build'))
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+//     })
+// }
 
 // Listing Port
 http.listen(process.env.PORT, () => {

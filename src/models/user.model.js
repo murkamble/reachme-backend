@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
     },
     avatar:{
         type: String,
-        default: 'https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png'
+        default: 'https://res.cloudinary.com/mayurkamble/image/upload/v1623832874/146-1468479_my-profile-icon-blank-profile-picture-circle-hd_pbd3h3.png'
     },
     role: {type: String, default: 'user'},
     gender: {type: String, default: 'male'},
