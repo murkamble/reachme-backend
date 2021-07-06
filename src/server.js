@@ -22,15 +22,14 @@ const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 
 io.on('connection', socket => {
-    SocketServer(socket)
+    socketServer(socket)
 })
 
 // Create peer server
 ExpressPeerServer(http, { path: '/' })
 
-// routes
 // Routes
-app.use('/api', require('./routes/auth.router'))
+app.use('/api/auth', require('./routes/auth.router'))
 app.use('/api', require('./routes/user.router'))
 app.use('/api', require('./routes/post.router'))
 app.use('/api', require('./routes/comment.router'))
