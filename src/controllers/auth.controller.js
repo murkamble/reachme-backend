@@ -21,7 +21,7 @@ const authController = {
 
             const newUser = { fullname, username: newUserName, dob, email, password: passwordHash, gender }
             const activation_token = createActivationToken(newUser)
-            const url = `${CLIENT_URL}/user/activate/${activation_token}`
+            const url = `${CLIENT_URL}/user/activation/${activation_token}`
             const txt = 'Confirm verification your email address'
             const emaillMessageButtonName = 'Verify your email'
             const message = `
@@ -51,26 +51,6 @@ const authController = {
             `
             sendMail({ to: email, subject: txt, text: message })
             res.json({ msg: "Register Success! Please activate your email to start." })
-            
-            // const access_token = createAccessToken({id: newUser._id})
-            // const refresh_token = createRefreshToken({id: newUser._id})
-
-            // res.cookie('refreshtoken', refresh_token, {
-            //     httpOnly: true,
-            //     path: '/api/auth/refresh_token',
-            //     maxAge: 30*24*60*60*1000 // 30days
-            // })
-
-            // await newUser.save()
-
-            // res.json({
-            //     msg: 'Register Success!',
-            //     access_token,
-            //     user: {
-            //         ...newUser._doc,
-            //         password: ''
-            //     }
-            // })
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -120,7 +100,7 @@ const authController = {
 
             res.cookie('refreshtoken', refresh_token, {
                 httpOnly: true,
-                path: '/api/auth/refresh_token',
+                path: '/api/refresh_token',
                 maxAge: 30*24*60*60*1000 // 30days
             })
 
@@ -224,7 +204,7 @@ const authController = {
     },
     logout: async (req, res) => {
         try {
-            res.clearCookie('refreshtoken', {path: '/api/auth/refresh_token'})
+            res.clearCookie('refreshtoken', {path: '/api/refresh_token'})
             return res.json({msg: "Logged out!"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -246,7 +226,8 @@ const authController = {
                 const access_token = createAccessToken({id: result.id})
 
                 res.json({
-                    access_token
+                    access_token,
+                    user
                 })
             })
             

@@ -29,7 +29,7 @@ io.on('connection', socket => {
 ExpressPeerServer(http, { path: '/' })
 
 // Routes
-app.use('/api/auth', require('./routes/auth.router'))
+app.use('/api', require('./routes/auth.router'))
 app.use('/api', require('./routes/user.router'))
 app.use('/api', require('./routes/post.router'))
 app.use('/api', require('./routes/comment.router'))
